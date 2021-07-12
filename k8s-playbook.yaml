@@ -1,0 +1,10 @@
+- name: Deploy K8s Objects
+  hosts: localhost
+  vars:
+    Deployment: k8s-deployment.yaml
+    Service: k8s-service.yaml
+  tasks:
+   - name: Create Kubernetes deployment
+     command: "kubectl apply -f  {{ Deployment }}"
+   - name: Create Kubernetes Service 
+     command: "kubectl apply -f  {{ Service }}"

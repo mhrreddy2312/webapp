@@ -72,7 +72,7 @@ pipeline {
       steps {
         sshagent(['sshkey']) {
 
-          sh "ssh -o StrictHostKeyChecking=no ec2-user@3.248.219.89 -C \"kubectl apply -f  k8s-deployment.yaml\""
+          sh "ssh -o StrictHostKeyChecking=no ec2-user@3.248.219.89 -C \"sudo anisble-playbook k8s-playbook.yaml\""
         }
       }
 
