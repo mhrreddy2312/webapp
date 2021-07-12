@@ -3,7 +3,8 @@
 ---
 - hosts: localhost
   tasks:
-
+  - name: Pull artifact from S3
+    command: "aws s3 cp s3://ramanjulareddy/webapp.war /tmp" 
   - name: Pull Tomcat  Container Image
     docker_image:
       name: tomcat:latest
