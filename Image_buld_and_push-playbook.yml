@@ -21,7 +21,7 @@
   - name: Log into DockerHub
     docker_login:
      username: mhrreddy
-     password: Ictl@2013
+     password: Ictl@20
 
 
   - name: Push to docker hub
