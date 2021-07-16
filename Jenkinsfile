@@ -18,23 +18,17 @@ pipeline {
       }
     }
 
-    stage('SonarQube Analysis') {
+    stage('build & SonarQube analysis') {
       steps {
         withSonarQubeEnv('sonar') {
 
-          sh 'mvn clean install sonar:sonar    -Dsonar.projectKey=SampleProject1    -Dsonar.host.url=http://34.254.170.95:9000    -Dsonar.login=c6ec44dc2d48ef6163084f856587ea1bda76fa72'
+          sh 'mvn clean package sonar:sonar    -Dsonar.projectKey=SampleProject1    -Dsonar.host.url=http://34.254.170.95:9000    -Dsonar.login=c6ec44dc2d48ef6163084f856587ea1bda76fa72'
 
         }
       }
     }
 
-    stage('Build') {
-      steps {
-
-        sh "mvn package"
-      }
-
-    }
+     
 
     stage('Release to aws') {
 
@@ -52,7 +46,7 @@ pipeline {
       steps {
         sshagent(['sshkey']) {
 
-          sh "ssh -o StrictHostKeyChecking=no ec2-user@3.248.219.89 -C \"sudo ansible-playbook docker-playbook.yml\""
+          sh "ssh -o StrictHostKeyChecking=no ec2-user@3.248.219.89 -C \"sudo ansible-playbook docker-playbook.yaml\""
         }
       }
 
@@ -72,7 +66,7 @@ pipeline {
       steps {
         sshagent(['sshkey']) {
 
-          sh "ssh -o StrictHostKeyChecking=no ec2-user@3.248.219.89 -C \"sudo anisble-playbook k8s-playbook.yaml\""
+          sh "ssh -o StrictHostKeyChecking=no ec2-user@3.248.219.89 -C \"ansible-playbook k8s-playbook.yaml\""
         }
       }
 
