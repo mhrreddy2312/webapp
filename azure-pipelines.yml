@@ -6,7 +6,7 @@
 parameters:
 - name: version
   type: string
-  default: []
+  
 
 steps:
 - checkout: none
